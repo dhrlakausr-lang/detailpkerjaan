@@ -4,16 +4,16 @@ include_once 'koneksi.php';
 
 $id = (int) ($_GET['id'] ?? 0);
 
-/* =========================
-DETAIL JOB
-========================= */
-
 $query = mysqli_query(
     $conn,
     "SELECT * FROM jobs WHERE id = $id"
 );
 
 $job = mysqli_fetch_assoc($query);
+
+if(!$job){
+    die("Data pekerjaan tidak ditemukan");
+}
 
 /* =========================
 PROSES LAMAR
@@ -27,7 +27,7 @@ if(isset($_POST['lamar'])){
 
     mysqli_query(
         $conn,
-        "INSERT INTO pelamar(username, email, job_id)
+        "INSERT INTO pelamar(username,email,job_id)
         VALUES('$username','$email','$job_id')"
     );
 
@@ -51,123 +51,135 @@ if(isset($_POST['lamar'])){
 
     <title>Detail Pekerjaan</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./detail.css">
 
-    <!-- FONT AWESOME -->
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
 <body>
 
-    <!-- =========================
-        NAVBAR
-    ========================== -->
+    <!-- LOGO -->
 
-    <nav class="navbar">
+    <div class="logo">
 
-        <div class="logo">
-            LokerInAja
-        </div>
+        <img src="logo.png">
 
-        <ul>
+    </div>
 
-            <li>
-                <a href="index.php">
-                    Home
-                </a>
-            </li>
+    <!-- PROFILE -->
 
-            <li>
-                <a href="#">
-                    Tentang
-                </a>
-            </li>
+    <div class="profile">
 
-            <li>
-                <a href="#">
-                    Kontak
-                </a>
-            </li>
+        <div class="avatar">U</div>
 
-        </ul>
+        <span>Hi, User</span>
 
-    </nav>
+    </div>
 
-    <!-- =========================
-        DETAIL JOB
-    ========================== -->
+    <!-- CONTAINER -->
 
-    <section class="detail-job">
+    <div class="container">
 
-        <div class="card-detail">
+        <!-- TITLE -->
 
-            <h1>
-                <?= $job['title']; ?>
-            </h1>
+        <h1>Detail Pekerjaan</h1>
 
-            <p class="company">
-                <?= $job['company']; ?>
-            </p>
+        <!-- CARD -->
 
-            <p class="location">
-                <i class="fa-solid fa-location-dot"></i>
-                <?= $job['location']; ?>
-            </p>
+        <div class="card">
 
-            <p class="salary">
-                <i class="fa-solid fa-money-bill"></i>
-                <?= $job['salary']; ?>
-            </p>
+            <!-- LEFT -->
 
-            <div class="description">
-                <?= $job['description']; ?>
+            <div class="left">
+
+                <h3>Nama Perusahaan</h3>
+                <p><?= $job['company']; ?></p>
+
+                <h3>Nama Pekerjaan</h3>
+                <p><?= $job['title']; ?></p>
+
+                <h3>Lokasi</h3>
+                <p><?= $job['location']; ?></p>
+
+                <h3>Gaji</h3>
+                <p><?= $job['salary']; ?></p>
+
+                <h3>Syarat & Deskripsi</h3>
+                <p><?= $job['description']; ?></p>
+
+                <!-- SOCIAL -->
+
+                <h3>Contact</h3>
+
+                <div class="social">
+
+                    <a href="#">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                </div>
+
             </div>
 
-            <!-- =========================
-                FORM LAMAR
-            ========================== -->
+            <!-- RIGHT -->
 
-            <form method="POST">
+            <div class="right">
 
-                <input
-                    type="hidden"
-                    name="job_id"
-                    value="<?= $job['id']; ?>"
-                >
+                <div class="image-box"></div>
 
-                <!-- USERNAME -->
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Masukkan Username"
-                    required
-                >
-
-                <!-- EMAIL -->
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Masukkan Email"
-                    required
-                >
-
-                <!-- BUTTON -->
-                <button
-                    type="submit"
-                    name="lamar"
-                    class="btn-lamar"
-                >
-                    Lamar Sekarang
-                </button>
-
-            </form>
+            </div>
 
         </div>
 
-    </section>
+        <!-- FORM LAMAR -->
+
+        <form method="POST" class="apply-form">
+
+            <input
+                type="hidden"
+                name="job_id"
+                value="<?= $job['id']; ?>"
+            >
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Masukkan Username"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Masukkan Email"
+                required
+            >
+
+            <button
+                type="submit"
+                name="lamar"
+                class="apply-btn"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Lamar Sekarang
+
+            </button>
+
+        </form>
+
+    </div>
 
 </body>
 </html>
