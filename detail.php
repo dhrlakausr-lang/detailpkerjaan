@@ -41,7 +41,7 @@ if(isset($_POST['lamar'])){
 
 ?>
 
-<!DOCTYPE html>GBTF
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
