@@ -1,46 +1,3 @@
-<?php
-
-include_once 'koneksi.php';
-
-$id = (int) ($_GET['id'] ?? 0);
-
-$query = mysqli_query(
-    $conn,
-    "SELECT * FROM jobs WHERE id = $id"
-);
-
-$job = mysqli_fetch_assoc($query);
-
-if(!$job){
-    die("Data pekerjaan tidak ditemukan");
-}
-
-/* =========================
-PROSES LAMAR
-========================= */
-
-if(isset($_POST['lamar'])){
-
-    $username = $_POST['username'];
-    $email    = $_POST['email'];
-    $job_id   = $_POST['job_id'];
-
-    mysqli_query(
-        $conn,
-        "INSERT INTO pelamar(username,email,job_id)
-        VALUES('$username','$email','$job_id')"
-    );
-
-    echo "
-    <script>
-        alert('Lamaran berhasil dikirim!');
-        window.location.href='detail.php?id=$job_id';
-    </script>
-    ";
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -51,20 +8,24 @@ if(isset($_POST['lamar'])){
 
     <title>Detail Pekerjaan</title>
 
-    <link rel="stylesheet" href="./detail.css">
+    <link rel="stylesheet" href="./laravel-lokerinaja/public/css/detail.css">
 
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
-<body>
+<body class="legacy-detail">
+
+    <button class="back-btn" type="button" onclick="history.back()" aria-label="Kembali ke daftar pekerjaan">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
 
     <!-- LOGO -->
 
     <div class="logo">
 
-        <img src="logo.png">
+        <img src="LOGO.png" alt="LokerinAja">
 
     </div>
 
@@ -95,19 +56,19 @@ if(isset($_POST['lamar'])){
             <div class="left">
 
                 <h3>Nama Perusahaan</h3>
-                <p><?= $job['company']; ?></p>
+                <p><?= htmlspecialchars($job['company'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
 
                 <h3>Nama Pekerjaan</h3>
-                <p><?= $job['title']; ?></p>
+                <p><?= htmlspecialchars($job['title'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
 
                 <h3>Lokasi</h3>
-                <p><?= $job['location']; ?></p>
+                <p><?= htmlspecialchars($job['location'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
 
                 <h3>Gaji</h3>
-                <p><?= $job['salary']; ?></p>
+                <p><?= htmlspecialchars($job['salary'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
 
                 <h3>Syarat & Deskripsi</h3>
-                <p><?= $job['description']; ?></p>
+                <p><?= htmlspecialchars($job['description'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
 
                 <!-- SOCIAL -->
 
@@ -143,12 +104,12 @@ if(isset($_POST['lamar'])){
 
         <!-- FORM LAMAR -->
 
-        <form method="POST" class="apply-form">
+        <form method="POST" action="lamar.php" class="apply-form">
 
             <input
                 type="hidden"
                 name="job_id"
-                value="<?= $job['id']; ?>"
+                value="<?= htmlspecialchars((string) ($job['id'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>"
             >
 
             <input
