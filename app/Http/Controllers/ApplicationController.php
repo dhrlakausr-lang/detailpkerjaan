@@ -10,6 +10,14 @@ class ApplicationController extends Controller
 {
     public function store(Request $request)
     {
+        if (! session()->has('user_id')) {
+            return redirect()->route('login')->with('error', 'Silakan login sebagai pelamar sebelum melamar');
+        }
+
+        if (session('role') === 'hr') {
+            return redirect()->route('admin.lamaran.index')->with('error', 'Akun HR tidak bisa mengirim lamaran');
+        }
+
         $data = $request->validate([
             'username' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'max:100'],

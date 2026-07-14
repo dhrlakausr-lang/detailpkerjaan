@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobPosting;
+use App\Models\Lowongan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -11,12 +12,30 @@ class JobController extends Controller
 {
     public function show(Request $request, JobPosting $job)
     {
-        $profile = $this->jobProfile($this->jobCategory($job->title), $job->title);
-        $otherJobs = JobPosting::query()
+        return $this->renderDetail($request, $job, JobPosting::query()
             ->where('id', '!=', $job->id)
             ->orderByDesc('id')
             ->limit(3)
-            ->get();
+            ->get());
+    }
+
+    public function showLowongan(Request $request, Lowongan $lowongan)
+    {
+        $job = new JobPosting([
+            'title' => $lowongan->posisi,
+            'company' => $lowongan->perusahaan ?: 'LokerinAja',
+            'location' => $lowongan->lokasi,
+            'salary' => $lowongan->gaji_format,
+            'description' => $lowongan->deskripsi ?: 'Detail lowongan tersedia melalui LokerinAja.',
+        ]);
+        $job->id = $lowongan->id;
+
+        return $this->renderDetail($request, $job, collect());
+    }
+
+    private function renderDetail(Request $request, JobPosting $job, $otherJobs)
+    {
+        $profile = $this->jobProfile($this->jobCategory($job->title), $job->title);
 
         $displayName = '';
         $userEmail = '';
