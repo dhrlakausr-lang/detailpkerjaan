@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $job->title }} - LokerinAja</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
+    @vite(['resources/css/app.css'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body class="m-0 pb-[118px] text-[#151515] bg-[linear-gradient(rgba(247,251,255,0.9),rgba(247,251,255,0.92)),url('/images/BACKGROUND.jpeg')] bg-cover bg-center bg-fixed font-[Arial,Helvetica,sans-serif] text-[15px] leading-[1.55] max-[820px]:pb-[170px] max-[820px]:bg-scroll">
     <header class="sticky top-0 z-20 flex min-h-[86px] items-center gap-[34px] border-b border-[rgba(215,215,215,0.78)] bg-white/90 px-[clamp(20px,5vw,86px)] py-[14px] backdrop-blur-[14px] max-[820px]:flex-wrap max-[820px]:gap-4 max-[520px]:px-4">
         <a class="flex items-center gap-2.5 text-[23px] font-extrabold text-[#2f80c5] no-underline" href="{{ route('jobs.show', 1) }}" aria-label="LokerinAja">
-            <img class="h-[52px] w-[68px] object-contain" src="{{ asset('images/LOGO.png') }}" alt="LokerinAja">
+            <img class="h-[52px] w-[68px] object-contain" src="{{ asset('images/logolokerinaja.png') }}" alt="LokerinAja">
             <span class="max-[820px]:hidden">LokerinAja</span>
         </a>
 
@@ -97,12 +97,40 @@
                                 <i class="fa-solid fa-paper-plane"></i>
                                 Apply Now
                             </a>
-                            <button class="js-save grid h-[50px] w-[50px] cursor-pointer place-items-center rounded border-0 bg-transparent text-[27px] text-[#2f80c5] transition hover:-translate-y-0.5 max-[820px]:w-[46px] [&.is-saved_i]:before:content-['\f02e'] [&.is-saved_i]:before:font-black" type="button" aria-label="Simpan lowongan">
-                                <i class="fa-regular fa-bookmark"></i>
+                            <button class="js-save {{ $isSaved ? 'is-saved' : '' }} grid h-[50px] w-[50px] cursor-pointer place-items-center rounded border-0 bg-transparent text-[27px] text-[#2f80c5] transition hover:-translate-y-0.5 max-[820px]:w-[46px] [&.is-saved_i]:before:content-['\f02e'] [&.is-saved_i]:before:font-black" type="button" aria-label="{{ $isSaved ? 'Lowongan tersimpan' : 'Simpan lowongan' }}" data-source-type="{{ $sourceType }}" data-source-id="{{ $job->id }}" data-toggle-url="{{ route('saved-jobs.toggle') }}">
+                                <i class="{{ $isSaved ? 'fa-solid' : 'fa-regular' }} fa-bookmark"></i>
                             </button>
-                            <button class="js-share grid h-[50px] w-[50px] cursor-pointer place-items-center rounded border-0 bg-transparent text-[27px] text-[#2f80c5] transition hover:-translate-y-0.5 max-[820px]:w-[46px]" type="button" aria-label="Bagikan lowongan">
-                                <i class="fa-solid fa-share-nodes"></i>
-                            </button>
+                            <div class="relative">
+                                <button class="js-share grid h-[50px] w-[50px] cursor-pointer place-items-center rounded border-0 bg-transparent text-[27px] text-[#2f80c5] transition hover:-translate-y-0.5 max-[820px]:w-[46px]" type="button" aria-label="Bagikan lowongan" aria-expanded="false">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </button>
+                                @php
+                                    $encodedShareUrl = rawurlencode($shareUrl);
+                                    $encodedShareText = rawurlencode('Cek lowongan ' . $job->title . ' di ' . $job->company . ' - ' . $shareUrl);
+                                @endphp
+                                <div class="js-share-menu absolute left-1/2 top-[calc(100%+10px)] z-40 hidden w-[230px] -translate-x-1/2 rounded-xl border border-[#dbe7f3] bg-white p-3 text-sm shadow-[0_18px_44px_rgba(20,35,55,0.18)]">
+                                    <a class="flex items-center gap-2 rounded-lg px-3 py-2 font-bold text-[#128c7e] no-underline hover:bg-[#ecfdf5]" href="https://wa.me/?text={{ $encodedShareText }}" target="_blank" rel="noopener">
+                                        <i class="fa-brands fa-whatsapp w-5 text-center"></i>
+                                        WhatsApp
+                                    </a>
+                                    <a class="flex items-center gap-2 rounded-lg px-3 py-2 font-bold text-[#229ed9] no-underline hover:bg-[#eff6ff]" href="https://t.me/share/url?url={{ $encodedShareUrl }}&text={{ $encodedShareText }}" target="_blank" rel="noopener">
+                                        <i class="fa-brands fa-telegram w-5 text-center"></i>
+                                        Telegram
+                                    </a>
+                                    <a class="flex items-center gap-2 rounded-lg px-3 py-2 font-bold text-[#1877f2] no-underline hover:bg-[#eff6ff]" href="https://www.facebook.com/sharer/sharer.php?u={{ $encodedShareUrl }}" target="_blank" rel="noopener">
+                                        <i class="fa-brands fa-facebook w-5 text-center"></i>
+                                        Facebook
+                                    </a>
+                                    <a class="flex items-center gap-2 rounded-lg px-3 py-2 font-bold text-[#111827] no-underline hover:bg-[#f8fafc]" href="https://twitter.com/intent/tweet?url={{ $encodedShareUrl }}&text={{ $encodedShareText }}" target="_blank" rel="noopener">
+                                        <i class="fa-brands fa-x-twitter w-5 text-center"></i>
+                                        X
+                                    </a>
+                                    <button class="js-copy-link mt-1 flex w-full cursor-pointer items-center gap-2 rounded-lg border-0 bg-[#f8fafc] px-3 py-2 text-left font-bold text-[#2563eb] hover:bg-[#eff6ff]" type="button" data-url="{{ $shareUrl }}">
+                                        <i class="fa-solid fa-link w-5 text-center"></i>
+                                        Copy Link
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </article>

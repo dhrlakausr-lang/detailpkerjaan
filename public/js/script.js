@@ -98,6 +98,23 @@ const kategoriCards = document.querySelectorAll('.kategori-card');
 const jobCards = document.querySelectorAll('.job-card');
 let activeKategori = '';
 
+function categoryMatches(kat, active) {
+    if (!active) return true;
+
+    const aliases = {
+        administrasi: ['administrasi', 'admin'],
+        teknik: ['teknik', 'teknisi'],
+        keuangan: ['keuangan', 'akuntansi', 'akutansi'],
+        it: ['it', 'tech', 'teknologi'],
+        marketing: ['marketing', 'digital marketing'],
+        retail: ['retail'],
+        'human resource': ['human resource', 'hr', 'recruiter']
+    };
+
+    const terms = aliases[active] || [active];
+    return terms.some(term => kat.includes(term));
+}
+
 function filterJobs() {
     const keyword = (document.getElementById('searchKeyword')?.value || '').toLowerCase();
     const lokasi  = (document.getElementById('searchLokasi')?.value  || '').toLowerCase();
@@ -110,7 +127,7 @@ function filterJobs() {
         const match =
             title.includes(keyword) &&
             city.includes(lokasi) &&
-            (activeKategori === '' || kat === activeKategori);
+            categoryMatches(kat, activeKategori);
 
         card.style.display = match ? '' : 'none';
     });

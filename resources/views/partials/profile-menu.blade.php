@@ -1,133 +1,30 @@
-<style>
-    .loker-profile {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        font-family: "Plus Jakarta Sans", Arial, sans-serif;
-    }
-
-    .loker-profile summary {
-        list-style: none;
-    }
-
-    .loker-profile summary::-webkit-details-marker {
-        display: none;
-    }
-
-    .loker-profile-trigger,
-    .loker-profile-login {
-        display: inline-flex;
-        min-height: 42px;
-        align-items: center;
-        gap: 10px;
-        border: 1px solid #dbe7f3;
-        border-radius: 999px;
-        background: #ffffff;
-        color: #1e3a5f;
-        padding: 6px 12px 6px 7px;
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        box-shadow: 0 8px 24px rgba(20, 35, 55, 0.08);
-        cursor: pointer;
-    }
-
-    .loker-profile-login {
-        padding: 7px 14px 7px 7px;
-    }
-
-    .loker-profile-avatar {
-        display: grid;
-        width: 32px;
-        height: 32px;
-        place-items: center;
-        border-radius: 999px;
-        background: #2563eb;
-        color: #ffffff;
-        font-size: 13px;
-        font-weight: 800;
-        text-transform: uppercase;
-    }
-
-    .loker-profile-menu {
-        position: absolute;
-        right: 0;
-        top: calc(100% + 10px);
-        z-index: 999;
-        display: grid;
-        min-width: 230px;
-        gap: 8px;
-        border: 1px solid #dbe7f3;
-        border-radius: 14px;
-        background: #ffffff;
-        padding: 14px;
-        color: #172033;
-        box-shadow: 0 18px 44px rgba(20, 35, 55, 0.18);
-    }
-
-    .loker-profile-name {
-        color: #172033;
-        font-size: 14px;
-        font-weight: 800;
-    }
-
-    .loker-profile-email {
-        margin-top: -4px;
-        color: #64748b;
-        font-size: 12px;
-    }
-
-    .loker-profile-link,
-    .loker-profile-logout {
-        display: block;
-        width: 100%;
-        border: 0;
-        border-radius: 9px;
-        background: transparent;
-        color: #2563eb;
-        padding: 9px 10px;
-        text-align: left;
-        font: inherit;
-        font-size: 13px;
-        font-weight: 700;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .loker-profile-link:hover,
-    .loker-profile-logout:hover {
-        background: #eff6ff;
-        color: #1d4ed8;
-    }
-</style>
-
 @if($authProfile['logged_in'])
-    <details class="loker-profile">
-        <summary class="loker-profile-trigger">
-            <span class="loker-profile-avatar">{{ $authProfile['initial'] }}</span>
+    <details class="relative inline-flex items-center font-sans">
+        <summary class="inline-flex min-h-[42px] cursor-pointer list-none items-center gap-2.5 rounded-full border border-[#dbe7f3] bg-white py-1.5 pl-[7px] pr-3 text-sm font-bold text-[#1e3a5f] no-underline shadow-[0_8px_24px_rgba(20,35,55,0.08)] marker:hidden [&::-webkit-details-marker]:hidden">
+            <span class="grid h-8 w-8 place-items-center rounded-full bg-[#2563eb] text-[13px] font-extrabold uppercase text-white">{{ $authProfile['initial'] }}</span>
             <span>{{ $authProfile['name'] }}</span>
             <i class="fa-solid fa-chevron-down"></i>
         </summary>
-        <div class="loker-profile-menu">
-            <div class="loker-profile-name">{{ $authProfile['name'] }}</div>
+        <div class="absolute right-0 top-[calc(100%+10px)] z-[999] grid min-w-[230px] gap-2 rounded-[14px] border border-[#dbe7f3] bg-white p-3.5 text-[#172033] shadow-[0_18px_44px_rgba(20,35,55,0.18)]">
+            <div class="text-sm font-extrabold text-[#172033]">{{ $authProfile['name'] }}</div>
             @if($authProfile['email'])
-                <div class="loker-profile-email">{{ $authProfile['email'] }}</div>
+                <div class="-mt-1 text-xs text-[#64748b]">{{ $authProfile['email'] }}</div>
             @endif
             @if(($authProfile['role'] ?? 'user') === 'hr')
-                <a class="loker-profile-link" href="{{ route('admin.lamaran.index') }}">Dashboard HR</a>
+                <a class="block w-full rounded-[9px] px-2.5 py-[9px] text-left text-[13px] font-bold text-[#2563eb] no-underline hover:bg-[#eff6ff] hover:text-[#1d4ed8]" href="{{ route('admin.lamaran.index') }}">Dashboard HR</a>
             @else
-                <a class="loker-profile-link" href="{{ route('lamaran.status') }}">Status Lamaran</a>
+                <a class="block w-full rounded-[9px] px-2.5 py-[9px] text-left text-[13px] font-bold text-[#2563eb] no-underline hover:bg-[#eff6ff] hover:text-[#1d4ed8]" href="{{ route('saved-jobs.index') }}">Lowongan Disimpan</a>
+                <a class="block w-full rounded-[9px] px-2.5 py-[9px] text-left text-[13px] font-bold text-[#2563eb] no-underline hover:bg-[#eff6ff] hover:text-[#1d4ed8]" href="{{ route('lamaran.status') }}">Status Lamaran</a>
             @endif
-            <a class="loker-profile-link" href="{{ route('lamaran.index') }}">Form Lamaran</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button class="loker-profile-logout" type="submit">Logout</button>
+                <button class="block w-full cursor-pointer rounded-[9px] border-0 bg-transparent px-2.5 py-[9px] text-left font-[inherit] text-[13px] font-bold text-[#2563eb] hover:bg-[#eff6ff] hover:text-[#1d4ed8]" type="submit">Logout</button>
             </form>
         </div>
     </details>
 @else
-    <a class="loker-profile-login" href="{{ route('login') }}">
-        <span class="loker-profile-avatar">U</span>
+    <a class="inline-flex min-h-[42px] items-center gap-2.5 rounded-full border border-[#dbe7f3] bg-white py-[7px] pl-[7px] pr-3.5 text-sm font-bold text-[#1e3a5f] no-underline shadow-[0_8px_24px_rgba(20,35,55,0.08)]" href="{{ route('login') }}">
+        <span class="grid h-8 w-8 place-items-center rounded-full bg-[#2563eb] text-[13px] font-extrabold uppercase text-white">U</span>
         <span>Masuk</span>
     </a>
 @endif

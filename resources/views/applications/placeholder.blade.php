@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lengkapi Lamaran - LokerinAja</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css'])
 </head>
 
 <body class="m-0 text-[#151515] bg-[linear-gradient(rgba(247,251,255,0.9),rgba(247,251,255,0.92)),url('/images/BACKGROUND.jpeg')] bg-cover bg-center font-[Arial,Helvetica,sans-serif] text-[15px] leading-[1.55]">

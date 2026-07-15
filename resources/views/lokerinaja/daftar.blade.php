@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     @vite(['resources/css/app.css'])
 </head>
@@ -17,7 +16,7 @@
     {{-- NAVBAR --}}
     <nav class="sticky top-0 z-[100] flex h-[68px] items-center justify-between border-b border-[#e2e8f0] bg-white px-10 shadow-nav">
         <div class="flex items-center gap-2">
-            <img src="{{ asset('images/logo.png') }}" alt="LokerInAja" class="h-10 w-auto object-contain">
+            <img src="{{ asset('images/logolokerinaja.png') }}" alt="LokerInAja" class="h-10 w-auto object-contain">
         </div>
         <ul class="flex list-none gap-1">
             <li><a href="{{ route('home') }}" class="rounded-lg px-3.5 py-1.5 text-sm font-medium text-[#64748b] no-underline transition-all duration-200 hover:bg-[#eff6ff] hover:text-[#2563eb]">Beranda</a></li>
@@ -247,7 +246,6 @@
     <script>
         window.lokerinajaApplyUrl = "{{ route('apply') }}";
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

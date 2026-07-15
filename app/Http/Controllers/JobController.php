@@ -12,7 +12,7 @@ class JobController extends Controller
 {
     public function show(Request $request, JobPosting $job)
     {
-        return $this->renderDetail($request, $job, JobPosting::query()
+        return $this->renderDetail($request, $job, 'job', JobPosting::query()
             ->where('id', '!=', $job->id)
             ->orderByDesc('id')
             ->limit(3)
@@ -30,12 +30,13 @@ class JobController extends Controller
         ]);
         $job->id = $lowongan->id;
 
-        return $this->renderDetail($request, $job, collect());
+        return $this->renderDetail($request, $job, 'lowongan', collect());
     }
 
-    private function renderDetail(Request $request, JobPosting $job, $otherJobs)
+    private function renderDetail(Request $request, JobPosting $job, string $sourceType, $otherJobs)
     {
         $profile = $this->jobProfile($this->jobCategory($job->title), $job->title);
+        $isSaved = false;
 
         $displayName = '';
         $userEmail = '';
@@ -47,6 +48,14 @@ class JobController extends Controller
             if ($user) {
                 $displayName = $user->nama ?? $user->name ?? $user->username ?? '';
                 $userEmail = $user->email ?? '';
+            }
+
+            if (Schema::hasTable('saved_jobs')) {
+                $isSaved = DB::table('saved_jobs')
+                    ->where('user_id', session('user_id'))
+                    ->where('source_type', $sourceType)
+                    ->where('source_id', $job->id)
+                    ->exists();
             }
         }
 
@@ -69,6 +78,9 @@ class JobController extends Controller
             'isLoggedIn' => $displayName !== '',
             'status' => $request->query('status'),
             'completionUrl' => $completionUrl,
+            'sourceType' => $sourceType,
+            'isSaved' => $isSaved,
+            'shareUrl' => $request->fullUrl(),
             'requirements' => [
                 'Kerja di lokasi',
                 'Penuh Waktu',

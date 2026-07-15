@@ -13,3 +13,75 @@
     --shadow-wa: 0 4px 20px rgba(37,211,102,.4);
     --shadow-wa-hover: 0 8px 28px rgba(37,211,102,.5);
 }
+
+@layer base {
+    body.modal-open {
+        overflow: hidden;
+    }
+}
+
+@layer components {
+    .autocomplete-item {
+        @apply flex cursor-pointer items-center gap-3 border-b border-slate-100 px-4 py-3 transition-colors duration-150 last:border-b-0 hover:bg-blue-50;
+    }
+
+    .autocomplete-item.focused {
+        @apply bg-blue-50;
+    }
+
+    .autocomplete-item img {
+        @apply h-10 w-10 shrink-0 rounded-lg border border-slate-200 object-cover;
+    }
+
+    .autocomplete-info {
+        @apply min-w-0 flex-1;
+    }
+
+    .autocomplete-info strong {
+        @apply block overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold text-slate-900;
+    }
+
+    .autocomplete-info strong mark {
+        @apply rounded bg-blue-100 px-0.5 text-blue-600;
+    }
+
+    .autocomplete-info span {
+        @apply text-xs text-slate-500;
+    }
+
+    .autocomplete-empty {
+        @apply px-4 py-5 text-center text-[13px] text-slate-500;
+    }
+
+    .section-highlight {
+        animation: sectionPulse .9s ease-out;
+        border-radius: 4px;
+    }
+
+    .toast {
+        @apply fixed left-1/2 z-[60] -translate-x-1/2 rounded-[5px] bg-[#222222] px-[18px] py-3 text-sm text-white shadow-[0_8px_24px_rgba(20,35,55,0.08)];
+        bottom: 126px;
+    }
+
+    .qr-code {
+        border: 8px solid #ffffff;
+        background:
+            linear-gradient(90deg, #111 12px, transparent 12px) 0 0 / 24px 24px,
+            linear-gradient(#111 12px, transparent 12px) 0 0 / 24px 24px,
+            #ffffff;
+        box-shadow: inset 0 0 0 3px #111111;
+    }
+}
+
+@layer utilities {
+    #subscribeInput:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,.07) inset;
+        -webkit-text-fill-color: white;
+    }
+
+    @keyframes sectionPulse {
+        0% { box-shadow: 0 0 0 0 rgba(37,99,235,.35); }
+        50% { box-shadow: 0 0 0 18px rgba(37,99,235,0); }
+        100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+    }
+}

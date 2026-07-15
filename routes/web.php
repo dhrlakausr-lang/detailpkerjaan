@@ -6,6 +6,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\LokerinajaController;
 use App\Http\Controllers\LowonganController;
+use App\Http\Controllers\SavedJobController;
 use App\Http\Controllers\UserController;
 use App\Models\Lowongan;
 use Illuminate\Support\Facades\Route;
@@ -50,10 +51,15 @@ Route::get('/daftar-lowongan', function () {
 
 Route::get('/lowongan', [LowonganController::class, 'index'])->name('lowongan.index');
 Route::get('/lowongan/{lowongan}/detail', [JobController::class, 'showLowongan'])->name('lowongan.detail');
+Route::get('/lowongan-tersimpan', [SavedJobController::class, 'index'])->name('saved-jobs.index');
+Route::post('/lowongan-tersimpan/toggle', [SavedJobController::class, 'toggle'])->name('saved-jobs.toggle');
 
 Route::get('/lamaran', [LamaranController::class, 'index'])->name('lamaran.index');
 Route::post('/lamaran', [LamaranController::class, 'store'])->name('lamaran.store');
 Route::get('/status-lamaran', [LamaranController::class, 'status'])->name('lamaran.status');
+Route::post('/status-lamaran/{lamaran}/hadir', [LamaranController::class, 'confirmInterview'])->name('lamaran.interview.confirm');
+Route::post('/status-lamaran/{lamaran}/reschedule', [LamaranController::class, 'requestReschedule'])->name('lamaran.interview.reschedule');
 
 Route::get('/admin/lamaran', [AdminLamaranController::class, 'index'])->name('admin.lamaran.index');
 Route::post('/admin/lamaran/{lamaran}/status', [AdminLamaranController::class, 'updateStatus'])->name('admin.lamaran.status');
+Route::post('/admin/lamaran/{lamaran}/reschedule', [AdminLamaranController::class, 'updateReschedule'])->name('admin.lamaran.reschedule');

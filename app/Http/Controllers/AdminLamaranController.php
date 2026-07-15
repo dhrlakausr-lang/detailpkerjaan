@@ -88,12 +88,87 @@ class AdminLamaranController extends Controller
 
         $request->validate([
             'status' => 'required|in:menunggu,diterima,ditolak',
+            'interview_schedule' => 'required_if:status,diterima|nullable|date',
+            'interview_contact_name' => 'required_if:status,diterima|nullable|string|max:100',
+            'interview_contact_info' => 'required_if:status,diterima|nullable|string|max:150',
+            'interview_note' => 'nullable|string|max:1000',
         ]);
 
-        $lamaran->update([
-            'status' => $request->status,
+        $statusBaru = $request->status;
+
+        $data = [
+            'status' => $statusBaru,
+        ];
+
+        if ($statusBaru === 'diterima') {
+            $data += [
+                'interview_schedule' => $request->interview_schedule,
+                'interview_contact_name' => $request->interview_contact_name,
+                'interview_contact_info' => $request->interview_contact_info,
+                'interview_note' => $request->interview_note,
+            ];
+        }
+
+        if ($statusBaru !== 'diterima') {
+            $data += [
+                'interview_schedule' => null,
+                'interview_contact_name' => null,
+                'interview_contact_info' => null,
+                'interview_note' => null,
+                'applicant_response' => null,
+                'reschedule_requested_at' => null,
+                'reschedule_schedule' => null,
+                'reschedule_reason' => null,
+                'reschedule_status' => null,
+                'reschedule_admin_note' => null,
+            ];
+        }
+
+        $lamaran->update($data);
+
+        return back()->with('success', $statusBaru === 'diterima'
+            ? 'Lamaran diterima dan jadwal interview sudah muncul di halaman pelamar.'
+            : 'Status lamaran berhasil diperbarui');
+    }
+
+    public function updateReschedule(Request $request, Lamaran $lamaran)
+    {
+        if ($response = $this->ensureHr()) {
+            return $response;
+        }
+
+        $perusahaanHr = $this->hrPerusahaan();
+        if ($perusahaanHr && $lamaran->perusahaan !== $perusahaanHr) {
+            abort(403, 'HR ini hanya bisa mengelola lamaran sesuai perusahaan akunnya');
+        }
+
+        $request->validate([
+            'reschedule_action' => 'required|in:disetujui,ditolak',
+            'interview_schedule' => 'required_if:reschedule_action,disetujui|nullable|date',
+            'reschedule_admin_note' => 'nullable|string|max:1000',
         ]);
 
-        return back()->with('success', 'Status lamaran berhasil diperbarui');
+        if ($lamaran->reschedule_status !== 'menunggu') {
+            return back()->with('error', 'Pengajuan reschedule ini sudah diproses.');
+        }
+
+        $data = [
+            'reschedule_status' => $request->reschedule_action,
+            'reschedule_admin_note' => $request->reschedule_admin_note,
+        ];
+
+        if ($request->reschedule_action === 'disetujui') {
+            $data['interview_schedule'] = $request->interview_schedule ?: $lamaran->reschedule_schedule;
+            $data['applicant_response'] = 'reschedule_disetujui';
+        } else {
+            $data['status'] = 'ditolak';
+            $data['applicant_response'] = 'reschedule_ditolak';
+        }
+
+        $lamaran->update($data);
+
+        return back()->with('success', $request->reschedule_action === 'disetujui'
+            ? 'Reschedule disetujui dan jadwal interview pelamar sudah diperbarui.'
+            : 'Reschedule ditolak dan status lamaran pelamar berubah menjadi ditolak.');
     }
 }

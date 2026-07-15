@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOKERIN AJA - Apply Job</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>body { font-family: 'Poppins', sans-serif; }</style>
+  @vite(['resources/css/app.css'])
 </head>
-<body class="bg-[#f8fafc]">
+<body class="bg-[#f8fafc] font-sans">
 <header class="bg-[#0f172a] px-6 md:px-10 py-4 flex flex-wrap items-center justify-between gap-4">
   <div class="flex items-center gap-3">
     <img src="{{ asset('images/logolokerinaja.png') }}" alt="Logo Lokerin Aja" class="h-[58px] w-auto object-contain block">
@@ -28,6 +27,11 @@
   <div class="w-full lg:w-[65%] p-12">
     <h2 class="text-2xl font-semibold text-[#0f172a] mb-3">Apply for This Job</h2>
     <p class="text-slate-600 mb-8">Isi data Anda dengan lengkap</p>
+    @if($errors->any())
+      <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
+        {{ $errors->first() }}
+      </div>
+    @endif
     <form id="jobForm" action="{{ route('lamaran.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <input type="hidden" name="perusahaan" value="{{ old('perusahaan', request('perusahaan', $perusahaan ?? '')) }}">
@@ -63,7 +67,8 @@
       @endif
       <div class="mb-5">
         <label class="block mb-2 font-medium text-slate-700">Upload CV</label>
-        <input type="file" name="cv" required class="w-full rounded-[10px] border border-slate-300 px-4 py-3 outline-none transition duration-200 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/30">
+        <input type="file" name="cv" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="w-full rounded-[10px] border border-slate-300 px-4 py-3 outline-none transition duration-200 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/30">
+        <p class="mt-2 text-xs text-slate-500">Format PDF/DOC/DOCX, maksimal 20 MB.</p>
       </div>
       <div class="mb-5">
         <label class="block mb-2 font-medium text-slate-700">Portfolio / LinkedIn</label>

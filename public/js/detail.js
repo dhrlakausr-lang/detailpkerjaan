@@ -3,6 +3,8 @@ const openButtons = document.querySelectorAll(".open-apply");
 const closeButton = document.querySelector(".close-modal");
 const saveButton = document.querySelector(".js-save");
 const shareButton = document.querySelector(".js-share");
+const shareMenu = document.querySelector(".js-share-menu");
+const copyLinkButton = document.querySelector(".js-copy-link");
 const reportButton = document.querySelector(".report-btn");
 const profileTrigger = document.querySelector(".profile-trigger");
 const profileMenu = document.getElementById("profileMenu");
@@ -75,42 +77,94 @@ document.addEventListener("keydown", (event) => {
 });
 
 if (saveButton) {
-    saveButton.addEventListener("click", () => {
-        saveButton.classList.toggle("is-saved");
-        const saved = saveButton.classList.contains("is-saved");
-        saveButton.setAttribute("aria-label", saved ? "Lowongan tersimpan" : "Simpan lowongan");
-        showToast(saved ? "Lowongan disimpan." : "Lowongan dihapus dari simpanan.");
+    saveButton.addEventListener("click", async () => {
+        const token = document.querySelector("meta[name='csrf-token']")?.content;
+        const icon = saveButton.querySelector("i");
+
+        try {
+            const response = await fetch(saveButton.dataset.toggleUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-CSRF-TOKEN": token || ""
+                },
+                body: JSON.stringify({
+                    source_type: saveButton.dataset.sourceType,
+                    source_id: saveButton.dataset.sourceId
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.status === 401 && data.redirect) {
+                window.location.href = data.redirect;
+                return;
+            }
+
+            if (!response.ok) {
+                showToast(data.message || "Lowongan gagal disimpan.");
+                return;
+            }
+
+            saveButton.classList.toggle("is-saved", data.saved);
+            saveButton.setAttribute("aria-label", data.saved ? "Lowongan tersimpan" : "Simpan lowongan");
+
+            if (icon) {
+                icon.className = `${data.saved ? "fa-solid" : "fa-regular"} fa-bookmark`;
+            }
+
+            showToast(data.message);
+        } catch (error) {
+            showToast("Koneksi gagal. Coba lagi.");
+        }
     });
 }
 
 if (shareButton) {
-    shareButton.addEventListener("click", async () => {
-        const shareData = {
-            title: document.title,
-            text: "Cek lowongan kerja ini.",
-            url: window.location.href
-        };
+    shareButton.addEventListener("click", (event) => {
+        event.stopPropagation();
 
-        if (navigator.share) {
-            try {
-                await navigator.share(shareData);
-                return;
-            } catch (error) {
-                if (error.name === "AbortError") {
-                    return;
-                }
-            }
-        }
-
-        if (navigator.clipboard) {
-            await navigator.clipboard.writeText(window.location.href);
-            showToast("Link lowongan disalin.");
+        if (!shareMenu) {
             return;
         }
 
-        showToast("Salin URL dari address bar untuk membagikan.");
+        const isOpen = !shareMenu.classList.contains("hidden");
+        shareMenu.classList.toggle("hidden", isOpen);
+        shareButton.setAttribute("aria-expanded", isOpen ? "false" : "true");
     });
 }
+
+if (shareMenu) {
+    shareMenu.addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+}
+
+if (copyLinkButton) {
+    copyLinkButton.addEventListener("click", async () => {
+        const url = copyLinkButton.dataset.url || window.location.href;
+
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(url);
+            showToast("Link lowongan disalin.");
+        } else {
+            showToast("Salin URL dari address bar untuk membagikan.");
+        }
+
+        if (shareMenu) {
+            shareMenu.classList.add("hidden");
+            shareButton?.setAttribute("aria-expanded", "false");
+        }
+    });
+}
+
+document.addEventListener("click", () => {
+    if (shareMenu) {
+        shareMenu.classList.add("hidden");
+        shareButton?.setAttribute("aria-expanded", "false");
+    }
+});
 
 if (reportButton) {
     reportButton.addEventListener("click", () => {

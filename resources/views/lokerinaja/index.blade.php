@@ -8,17 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     @vite(['resources/css/app.css'])
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body class="scroll-smooth bg-[#f8fafc] font-sans text-[15px] leading-[1.6] text-[#334155]">
 
     {{-- NAVBAR --}}
     <nav class="sticky top-0 z-[100] flex h-[68px] items-center justify-between border-b border-[#e2e8f0] bg-white px-10 shadow-[0_1px_3px_rgba(0,0,0,.08),0_1px_2px_rgba(0,0,0,.06)]">
         <div class="flex items-center gap-2">
-            <img src="{{ asset('images/logo.png') }}" alt="LokerInAja" class="h-10 w-auto object-contain">
+            <img src="{{ asset('images/logolokerinaja.png') }}" alt="LokerInAja" class="h-10 w-auto object-contain">
         </div>
 
         <ul class="flex list-none gap-1">
@@ -98,7 +96,7 @@
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fff7ed] text-xl text-[#ea580c] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-bullhorn"></i></div>
                     <span>Marketing</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="admin">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="administrasi">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fdf4ff] text-xl text-[#9333ea] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-folder-open"></i></div>
                     <span>Admin</span>
                 </div>
@@ -110,11 +108,11 @@
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f0f9ff] text-xl text-[#0284c7] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-users"></i></div>
                     <span>Human Resource</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="teknisi">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="teknik">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fefce8] text-xl text-[#ca8a04] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-tools"></i></div>
                     <span>Teknisi</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="akutansi & keuangan">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="keuangan">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f0fdfa] text-xl text-[#0d9488] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-chart-line"></i></div>
                     <span>Akuntansi</span>
                 </div>
@@ -141,22 +139,24 @@
                     <div class="job-card flex flex-col overflow-hidden rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white transition-all duration-[250ms] hover:-translate-y-1 hover:border-[#2563eb] hover:shadow-[0_10px_40px_rgba(0,0,0,.14)]" data-kategori="{{ strtolower($item->kategori ?? '') }}">
                         <div class="relative flex items-center justify-between bg-gradient-to-br from-[#eff6ff] to-[#dbeafe] p-6">
                             <img src="{{ $gambarUrl }}" alt="{{ $item->posisi ?? 'Lowongan' }}" class="h-14 w-14 rounded-xl border border-[#e2e8f0] bg-white object-cover">
-                            <span class="rounded-full bg-[#dcfce7] px-2.5 py-1 text-[11px] font-bold text-[#15803d]">Full Time</span>
+                            <span class="rounded-full bg-[#dcfce7] px-2.5 py-1 text-[11px] font-bold text-[#15803d]">{{ $item->tipe_kerja ?? 'Full-time' }}</span>
                         </div>
                         <div class="flex-1 px-5 pb-3 pt-[18px]">
                             <h3 class="job-title mb-2.5 text-base font-bold leading-[1.3] text-[#0f172a]">{{ $item->posisi ?? '-' }}</h3>
                             <div class="job-meta flex flex-col gap-[5px]">
-                                <span class="flex items-center gap-1.5 text-[13px] text-[#64748b]"><i class="fas fa-map-marker-alt w-3.5 text-xs text-[#2563eb]"></i> {{ $item->lokasi ?? '-' }}</span>
+                                <span class="flex items-center gap-1.5 text-[13px] text-[#64748b]"><i class="fas fa-building w-3.5 text-xs text-[#2563eb]"></i> {{ $item->perusahaan ?? '-' }}</span>
+                                <span class="flex items-center gap-1.5 text-[13px] text-[#64748b]"><i class="fas fa-map-marker-alt w-3.5 text-xs text-[#2563eb]"></i> {{ $item->lokasi ?? '-' }} · {{ $item->pengaturan_kerja ?? '-' }}</span>
                                 @if($item->kategori)
                                 <span class="flex items-center gap-1.5 text-[13px] text-[#64748b]"><i class="fas fa-tag w-3.5 text-xs text-[#2563eb]"></i> {{ $item->kategori }}</span>
                                 @endif
+                                <span class="mt-1 flex items-center gap-1.5 text-sm font-extrabold text-[#15803d]"><i class="fas fa-wallet w-3.5 text-xs"></i> {{ $item->gaji_format }}</span>
                             </div>
                         </div>
                         <div class="px-5 pb-5 pt-3.5">
                             <a
                                 class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-[10px] border-0 bg-[#2563eb] p-[11px] font-[inherit] text-sm font-bold text-white no-underline transition-all duration-200 hover:-translate-y-px hover:bg-[#1d4ed8] hover:text-white hover:shadow-[0_4px_12px_rgba(37,99,235,.35)]"
                                 href="{{ route('lowongan.detail', $item) }}">
-                                <i class="fas fa-paper-plane"></i> Lamar Sekarang
+                                <i class="fas fa-eye"></i> Lihat Detail
                             </a>
                         </div>
                     </div>
@@ -285,7 +285,7 @@
         <div class="mx-auto max-w-[1200px] px-6">
             <div class="grid grid-cols-[2fr_1fr_1fr_1.5fr] gap-12 border-b border-[rgba(255,255,255,.08)] pb-12">
                 <div>
-                    <img src="{{ asset('images/logo.png') }}" alt="LokerInAja" class="mb-3.5 block h-10 w-auto object-contain">
+                    <img src="{{ asset('images/logolokerinaja.png') }}" alt="LokerInAja" class="mb-3.5 block h-10 w-auto object-contain">
                     <p class="mb-5 text-sm leading-[1.7] text-[rgba(255,255,255,.55)]">Platform pencarian kerja terpercaya untuk menghubungkan talenta terbaik dengan perusahaan impian.</p>
                     <form class="mb-5 flex overflow-hidden rounded-[10px] border border-[rgba(255,255,255,.1)] bg-[rgba(255,255,255,.07)]" onsubmit="subscribeEmail(event)">
                         <input class="flex-1 border-0 bg-transparent px-3.5 py-2.5 font-[inherit] text-[13px] text-white shadow-none outline-none placeholder:text-[rgba(255,255,255,.35)]" type="email" id="subscribeInput" placeholder="Email kamu..." required>
@@ -362,7 +362,6 @@
     <script>
         window.lokerinajaApplyUrl = "{{ route('apply') }}";
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>
