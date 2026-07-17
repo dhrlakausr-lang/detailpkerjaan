@@ -221,20 +221,17 @@
             </section>
 
             <aside class="grid content-start gap-[22px] max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
-                <div class="grid grid-cols-[96px_1fr] gap-4 rounded-md border border-[#43b7e9] bg-[#eefbff] p-3 max-[520px]:grid-cols-[78px_1fr]">
-                    <div class="qr-code h-24 w-24 max-[520px]:h-[78px] max-[520px]:w-[78px]" aria-hidden="true"></div>
-                    <div>
-                        <strong class="mb-2 mt-2.5 block text-[15px] leading-[1.25]">Dapatkan notifikasi lokermu secara langsung</strong>
-                        <span class="text-sm font-extrabold tracking-[4px]">Scan kode QR untuk download</span>
-                    </div>
-                </div>
-
                 <h2 class="mb-0 mt-0 text-[21px] leading-[1.2] max-[1100px]:col-span-full">Lowongan Lainnya Untukmu</h2>
 
                 @foreach ($otherJobs as $other)
-                    <a class="block rounded-lg border border-[#eeeeee] bg-white px-5 pb-[18px] pt-6 text-[#1c1c1c] no-underline shadow-[0_8px_24px_rgba(20,35,55,0.08)] hover:border-[#c8def1]" href="{{ route('jobs.show', $other) }}">
+                    @php
+                        $otherSourceType = $other->source_type ?? 'job';
+                        $otherSaved = $savedLookup[$otherSourceType . ':' . $other->id] ?? false;
+                        $otherUrl = $otherSourceType === 'lowongan' ? route('lowongan.detail', $other->id) : route('jobs.show', $other);
+                    @endphp
+                    <div class="rounded-lg border border-[#eeeeee] bg-white px-5 pb-[18px] pt-6 text-[#1c1c1c] shadow-[0_8px_24px_rgba(20,35,55,0.08)] hover:border-[#c8def1]">
                         <div class="flex items-center justify-between gap-[14px]">
-                            <h3 class="m-0 text-lg">{{ $other->title }}</h3>
+                            <a class="m-0 text-lg font-bold text-[#1c1c1c] no-underline hover:text-[#2f80c5]" href="{{ $otherUrl }}">{{ $other->title }}</a>
                             <strong class="shrink-0 text-[15px] text-[#2f80c5]">{{ $other->salary }}</strong>
                         </div>
                         <div class="mt-4 flex flex-wrap gap-2.5">
@@ -244,10 +241,12 @@
                         <p class="m-0 mt-4 flex items-center gap-2.5 text-[15px] text-[#2f80c5]"><i class="fa-solid fa-shield-halved text-[#388f73]"></i>{{ $other->company }}</p>
                         <p class="m-0 mt-4 flex items-center gap-2.5 text-[15px] text-[#2f2f2f]"><i class="fa-solid fa-location-dot"></i>{{ $other->location }}</p>
                         <div class="mt-6 flex items-center justify-between border-t border-[#e5e5e5] pt-[18px] text-[13px] font-extrabold tracking-[2px] text-[#777777]">
-                            <span>5 hari yang lalu</span>
-                            <i class="fa-regular fa-bookmark text-2xl tracking-normal text-[#2f80c5]"></i>
+                            <a class="text-[#2f80c5] no-underline hover:underline" href="{{ $otherUrl }}">Lihat Detail</a>
+                            <button class="js-save {{ $otherSaved ? 'is-saved' : '' }} grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-[#dbe7f3] bg-white text-2xl tracking-normal text-[#2f80c5] transition hover:bg-[#eff6ff]" type="button" aria-label="{{ $otherSaved ? 'Lowongan tersimpan' : 'Simpan lowongan' }}" data-source-type="{{ $otherSourceType }}" data-source-id="{{ $other->id }}" data-toggle-url="{{ route('saved-jobs.toggle') }}">
+                                <i class="{{ $otherSaved ? 'fa-solid' : 'fa-regular' }} fa-bookmark"></i>
+                            </button>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </aside>
         </div>
@@ -263,10 +262,6 @@
             Apply Now
         </a>
     </div>
-
-    <button class="fixed bottom-[130px] right-[26px] z-[29] grid h-[62px] w-[62px] cursor-pointer place-items-center rounded-full border-0 bg-[#56d167] text-[32px] text-white shadow-[0_10px_25px_rgba(49,174,79,0.28)] max-[820px]:bottom-[188px] max-[820px]:right-[18px] max-[820px]:h-[58px] max-[820px]:w-[58px] max-[820px]:text-[30px]" type="button" aria-label="Hubungi lewat WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </button>
 
     <div class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-black/55 p-6 [&.is-open]:!flex" id="applyModal" aria-hidden="true">
         <div class="relative w-[min(520px,100%)] rounded-lg border border-[#d7e8f7] bg-[linear-gradient(180deg,#f2f9ff_0%,#ffffff_34%)] p-[30px] shadow-[0_25px_80px_rgba(0,0,0,0.22)]" role="dialog" aria-modal="true" aria-labelledby="applyTitle">

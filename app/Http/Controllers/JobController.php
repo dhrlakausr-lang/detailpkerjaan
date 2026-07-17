@@ -30,13 +30,33 @@ class JobController extends Controller
         ]);
         $job->id = $lowongan->id;
 
-        return $this->renderDetail($request, $job, 'lowongan', collect());
+        $otherJobs = Lowongan::query()
+            ->where('id', '!=', $lowongan->id)
+            ->latest()
+            ->limit(3)
+            ->get()
+            ->map(function (Lowongan $item) {
+                $other = new JobPosting([
+                    'title' => $item->posisi,
+                    'company' => $item->perusahaan ?: 'LokerinAja',
+                    'location' => $item->lokasi,
+                    'salary' => $item->gaji_format,
+                    'description' => $item->deskripsi ?: 'Detail lowongan tersedia melalui LokerinAja.',
+                ]);
+                $other->id = $item->id;
+                $other->source_type = 'lowongan';
+
+                return $other;
+            });
+
+        return $this->renderDetail($request, $job, 'lowongan', $otherJobs);
     }
 
     private function renderDetail(Request $request, JobPosting $job, string $sourceType, $otherJobs)
     {
         $profile = $this->jobProfile($this->jobCategory($job->title), $job->title);
         $isSaved = false;
+        $savedLookup = [];
 
         $displayName = '';
         $userEmail = '';
@@ -56,6 +76,12 @@ class JobController extends Controller
                     ->where('source_type', $sourceType)
                     ->where('source_id', $job->id)
                     ->exists();
+
+                $savedLookup = DB::table('saved_jobs')
+                    ->where('user_id', session('user_id'))
+                    ->get()
+                    ->mapWithKeys(fn ($saved) => [$saved->source_type . ':' . $saved->source_id => true])
+                    ->all();
             }
         }
 
@@ -80,6 +106,7 @@ class JobController extends Controller
             'completionUrl' => $completionUrl,
             'sourceType' => $sourceType,
             'isSaved' => $isSaved,
+            'savedLookup' => $savedLookup,
             'shareUrl' => $request->fullUrl(),
             'requirements' => [
                 'Kerja di lokasi',

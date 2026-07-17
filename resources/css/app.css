@@ -71,6 +71,14 @@
             #ffffff;
         box-shadow: inset 0 0 0 3px #111111;
     }
+
+    .welcome-marquee {
+        animation: welcomeMarquee 20s linear infinite;
+    }
+
+    .welcome-marquee:hover {
+        animation-play-state: paused;
+    }
 }
 
 @layer utilities {
@@ -83,5 +91,156 @@
         0% { box-shadow: 0 0 0 0 rgba(37,99,235,.35); }
         50% { box-shadow: 0 0 0 18px rgba(37,99,235,0); }
         100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+    }
+
+    @keyframes welcomeMarquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 768px) {
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        img,
+        video,
+        canvas,
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        body > nav {
+            height: auto !important;
+            min-height: 68px;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 12px 16px !important;
+        }
+
+        body > nav > ul {
+            order: 3;
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            justify-content: flex-start;
+            scrollbar-width: none;
+        }
+
+        body > nav > ul::-webkit-scrollbar {
+            display: none;
+        }
+
+        body > nav > div:last-child {
+            margin-left: auto;
+            min-width: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        body > nav select {
+            max-width: 150px;
+        }
+
+        .section {
+            padding-top: 48px !important;
+            padding-bottom: 48px !important;
+        }
+
+        .section > div,
+        footer > div,
+        main > section,
+        main > div {
+            max-width: 100%;
+        }
+
+        #kategori .flex.flex-wrap {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        #kategori .kategori-card {
+            min-width: 0 !important;
+            width: 100%;
+            padding: 16px 12px !important;
+        }
+
+        #lowongan #jobGrid {
+            grid-template-columns: 1fr !important;
+        }
+
+        .job-card {
+            min-width: 0;
+        }
+
+        .job-card .job-title {
+            overflow-wrap: anywhere;
+        }
+
+        .btn-search {
+            width: 100%;
+        }
+
+        .autocomplete-dropdown {
+            left: 0 !important;
+            right: 0 !important;
+        }
+
+        .featured-card {
+            min-width: 0;
+        }
+
+        footer .grid,
+        #testimoni .grid,
+        section.bg-white .grid.grid-cols-3 {
+            grid-template-columns: 1fr !important;
+        }
+
+        footer .flex.items-center.justify-between {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        footer .flex.gap-6 {
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .toast {
+            left: 16px;
+            right: 16px;
+            bottom: 24px;
+            transform: none;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 640px) {
+        body > nav > div:first-child img {
+            height: 36px;
+        }
+
+        body > nav > div:last-child {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        body > nav select {
+            flex: 1;
+            max-width: none;
+        }
+
+        #kategori .flex.flex-wrap {
+            grid-template-columns: 1fr;
+        }
+
+        .welcome-marquee {
+            animation-duration: 14s;
+        }
     }
 }

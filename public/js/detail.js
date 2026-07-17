@@ -1,7 +1,7 @@
 const modal = document.getElementById("applyModal");
 const openButtons = document.querySelectorAll(".open-apply");
 const closeButton = document.querySelector(".close-modal");
-const saveButton = document.querySelector(".js-save");
+const saveButtons = document.querySelectorAll(".js-save");
 const shareButton = document.querySelector(".js-share");
 const shareMenu = document.querySelector(".js-share-menu");
 const copyLinkButton = document.querySelector(".js-copy-link");
@@ -76,8 +76,11 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-if (saveButton) {
-    saveButton.addEventListener("click", async () => {
+saveButtons.forEach((saveButton) => {
+    saveButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
         const token = document.querySelector("meta[name='csrf-token']")?.content;
         const icon = saveButton.querySelector("i");
 
@@ -119,7 +122,7 @@ if (saveButton) {
             showToast("Koneksi gagal. Coba lagi.");
         }
     });
-}
+});
 
 if (shareButton) {
     shareButton.addEventListener("click", (event) => {

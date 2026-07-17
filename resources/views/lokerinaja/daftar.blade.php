@@ -99,23 +99,23 @@
                         <div class="flex flex-col gap-1">
                             @php
                                 $katIcons = [
-                                    'it'                   => ['icon' => 'fa-laptop-code', 'color' => '#2563eb'],
-                                    'marketing'            => ['icon' => 'fa-bullhorn',    'color' => '#ea580c'],
-                                    'admin'                => ['icon' => 'fa-folder-open', 'color' => '#9333ea'],
-                                    'retail'               => ['icon' => 'fa-store',       'color' => '#e11d48'],
-                                    'human resource'       => ['icon' => 'fa-users',       'color' => '#0284c7'],
-                                    'teknisi'              => ['icon' => 'fa-tools',       'color' => '#ca8a04'],
-                                    'akutansi & keuangan'  => ['icon' => 'fa-chart-line',  'color' => '#0d9488'],
+                                    'it'                   => ['icon' => 'fa-laptop-code', 'class' => 'text-[#2563eb]'],
+                                    'marketing'            => ['icon' => 'fa-bullhorn',    'class' => 'text-[#ea580c]'],
+                                    'admin'                => ['icon' => 'fa-folder-open', 'class' => 'text-[#9333ea]'],
+                                    'retail'               => ['icon' => 'fa-store',       'class' => 'text-[#e11d48]'],
+                                    'human resource'       => ['icon' => 'fa-users',       'class' => 'text-[#0284c7]'],
+                                    'teknisi'              => ['icon' => 'fa-tools',       'class' => 'text-[#ca8a04]'],
+                                    'akutansi & keuangan'  => ['icon' => 'fa-chart-line',  'class' => 'text-[#0d9488]'],
                                 ];
                             @endphp
                             @foreach($kategoris as $kat)
-                                @php $info = $katIcons[strtolower($kat)] ?? ['icon' => 'fa-briefcase', 'color' => '#64748b']; @endphp
+                                @php
+                                    $info = $katIcons[strtolower($kat)] ?? ['icon' => 'fa-briefcase', 'class' => 'text-[#64748b]'];
+                                    $activeClass = request('kategori') == $kat ? ' active bg-[#eff6ff] font-bold text-[#2563eb]' : '';
+                                @endphp
                                 <a href="{{ route('daftar.lowongan', ['kategori' => $kat]) }}"
-                                @class([
-                                    'kat-quick-item flex items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13px] font-medium text-[#334155] no-underline transition-all duration-200 hover:bg-[#f8fafc] hover:text-[#2563eb]',
-                                    'active bg-[#eff6ff] font-bold text-[#2563eb]' => request('kategori') == $kat,
-                                ])>
-                                    <i @class(['fas', $info['icon'], 'w-[18px] text-center text-sm']) style="color:{{ $info['color'] }}"></i>
+                                   class="kat-quick-item flex items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13px] font-medium text-[#334155] no-underline transition-all duration-200 hover:bg-[#f8fafc] hover:text-[#2563eb]{{ $activeClass }}">
+                                    <i class="fas {{ $info['icon'] }} {{ $info['class'] }} w-[18px] text-center text-sm"></i>
                                     <span>{{ ucfirst($kat) }}</span>
                                 </a>
                             @endforeach
@@ -165,7 +165,7 @@
                             $gambarUrl = filter_var($gambar, FILTER_VALIDATE_URL)
                                 ? $gambar
                                 : asset('images/' . basename($gambar));
-                            $katInfo = $katIcons[strtolower($item->kategori ?? '')] ?? ['icon' => 'fa-briefcase', 'color' => '#64748b'];
+                            $katInfo = $katIcons[strtolower($item->kategori ?? '')] ?? ['icon' => 'fa-briefcase', 'class' => 'text-[#64748b]'];
                         @endphp
                         <div class="flex items-center gap-[18px] rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white p-5 transition-all duration-[250ms] hover:translate-x-1 hover:border-[#2563eb] hover:shadow-list-card">
                             <div>
@@ -176,14 +176,14 @@
                                     <div>
                                         <h3 class="mb-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold text-[#0f172a]">{{ $item->posisi }}</h3>
                                         <div class="flex flex-wrap gap-3.5">
-                                            <span class="flex items-center gap-[5px] text-[13px] text-[#64748b]"><i class="fas fa-map-marker-alt text-xs text-[#2563eb]"></i> {{ $item->lokasi }}</span>
+                                            <span class="flex items-center gap-1.5 text-[13px] text-[#64748b]"><i class="fas fa-map-marker-alt text-xs text-[#2563eb]"></i> {{ $item->lokasi }}</span>
                                             @if($item->kategori)
-                                            <span class="flex items-center gap-[5px] text-[13px] text-[#64748b]">
-                                                <i @class(['fas', $katInfo['icon']]) style="color:{{ $katInfo['color'] }}"></i>
+                                            <span class="flex items-center gap-1.5 text-[13px] text-[#64748b]">
+                                                <i class="fas {{ $katInfo['icon'] }} {{ $katInfo['class'] }}"></i>
                                                 {{ ucfirst($item->kategori) }}
                                             </span>
                                             @endif
-                                            <span class="flex items-center gap-[5px] text-[13px] text-[#64748b]"><i class="fas fa-clock text-xs text-[#2563eb]"></i> Full Time</span>
+                                            <span class="flex items-center gap-1.5 text-[13px] text-[#64748b]"><i class="fas fa-clock text-xs text-[#2563eb]"></i> Full Time</span>
                                         </div>
                                     </div>
                                     <span class="shrink-0 whitespace-nowrap rounded-full bg-[#dcfce7] px-3 py-1 text-[11px] font-bold text-[#15803d]">Dibuka</span>

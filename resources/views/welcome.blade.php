@@ -37,15 +37,15 @@
             <div class="relative min-h-[440px] lg:min-h-[560px]" aria-hidden="true">
                 <div class="absolute left-[8%] top-[8%] h-[280px] w-[280px] rounded-full border border-white/20 bg-white/5 shadow-[0_0_80px_rgba(96,165,250,.24)]"></div>
                 <div class="absolute left-0 top-[20%] rounded-2xl border border-white/15 bg-white/12 p-5 shadow-[0_18px_46px_rgba(0,0,0,.24)] backdrop-blur-md">
-                    <strong class="block text-2xl">12 Lowongan</strong>
+                    <strong class="block text-2xl">{{ $activeLowonganCount ?? 0 }} Lowongan</strong>
                     <span class="text-sm text-white/70">Aktif dari database LokerInAja</span>
                 </div>
 
                 <div class="absolute right-0 top-12 w-[min(390px,100%)] overflow-hidden rounded-3xl border border-white/20 bg-white/95 p-5 text-[#0f172a] shadow-[0_28px_80px_rgba(0,0,0,.30)]">
                     <img src="{{ asset('images/Job3.png') }}" alt="" class="mb-4 h-44 w-full rounded-2xl object-cover">
                     <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-extrabold text-[#2563eb]">Rekomendasi Hari Ini</span>
-                    <h2 class="mt-4 text-2xl font-extrabold">UI/UX Designer</h2>
-                    <p class="mt-2 text-sm leading-6 text-slate-500">Creative Studio - Bandung<br>Detail pekerjaan siap dibuka dan dilamar.</p>
+                    <h2 class="mt-4 text-2xl font-extrabold">{{ $featuredWelcomeJob->posisi ?? 'UI/UX Designer' }}</h2>
+                    <p class="mt-2 text-sm leading-6 text-slate-500">{{ $featuredWelcomeJob->perusahaan ?? 'Creative Studio' }} - {{ $featuredWelcomeJob->lokasi ?? 'Bandung' }}<br>Detail pekerjaan siap dibuka dan dilamar.</p>
                 </div>
 
                 <div class="absolute bottom-20 right-8 rounded-2xl border border-white/15 bg-[#0f172a]/75 p-5 shadow-[0_18px_46px_rgba(0,0,0,.22)] backdrop-blur-md max-sm:hidden">
@@ -54,10 +54,15 @@
                 </div>
 
                 <div class="absolute bottom-0 left-0 right-0 overflow-hidden rounded-full border border-white/15 bg-white/10 p-2 backdrop-blur">
-                    <div class="flex w-max gap-2">
-                        @foreach(['Frontend Developer','Staff Administrasi','Mobile Developer','HR Recruiter','Sales Executive','Frontend Developer','Staff Administrasi','Mobile Developer'] as $chip)
-                            <span class="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-[#1e3a8a]">{{ $chip }}</span>
-                        @endforeach
+                    <div class="welcome-marquee flex w-max gap-2">
+                        @forelse($welcomeJobs->concat($welcomeJobs) as $chip)
+                            <span class="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-[#1e3a8a]">{{ $chip->posisi }}</span>
+                        @empty
+                            <span class="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-[#1e3a8a]">Frontend Developer</span>
+                            <span class="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-[#1e3a8a]">Staff Administrasi</span>
+                            <span class="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-[#1e3a8a]">HR Recruiter</span>
+                            <span class="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-[#1e3a8a]">Accounting Staff</span>
+                        @endforelse
                     </div>
                 </div>
             </div>

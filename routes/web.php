@@ -11,7 +11,13 @@ use App\Http\Controllers\UserController;
 use App\Models\Lowongan;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/', function () {
+    $welcomeJobs = Lowongan::latest()->limit(8)->get();
+    $featuredWelcomeJob = $welcomeJobs->first() ?? Lowongan::latest()->first();
+    $activeLowonganCount = Lowongan::count();
+
+    return view('welcome', compact('welcomeJobs', 'featuredWelcomeJob', 'activeLowonganCount'));
+})->name('welcome');
 
 Route::get('/detail/{job}', [JobController::class, 'show'])->name('jobs.show');
 Route::post('/lamar', [ApplicationController::class, 'store'])->name('applications.store');
