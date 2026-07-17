@@ -132,7 +132,7 @@
                             <span class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-bold text-slate-700">{{ $row->level }}</span>
                         </div>
 
-                        <a class="flex w-full items-center justify-center rounded-lg border border-[#2563eb] bg-[#2563eb] px-4 py-2 text-sm font-semibold text-white no-underline transition hover:border-[#1d4ed8] hover:bg-[#1d4ed8]" href="{{ route('lowongan.detail', $row) }}">Lihat Detail</a>
+                        <a class="flex w-full items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 no-underline transition hover:border-[#2563eb] hover:bg-blue-50 hover:text-[#2563eb]" href="{{ route('lowongan.detail', $row) }}">Lihat Detail</a>
                     </article>
                 @empty
                     <div class="md:col-span-2">
