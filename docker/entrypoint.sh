@@ -41,6 +41,7 @@ if [ ! -f .env ]; then
         echo "MAIL_PORT=${MAIL_PORT:-2525}"
         echo "MAIL_USERNAME=${MAIL_USERNAME:-null}"
         echo "MAIL_PASSWORD=${MAIL_PASSWORD:-null}"
+        echo "MAIL_ENCRYPTION=${MAIL_ENCRYPTION:-null}"
         echo "MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS:-hello@example.com}"
         echo "MAIL_FROM_NAME=${MAIL_FROM_NAME:-LokerinAja}"
         echo
