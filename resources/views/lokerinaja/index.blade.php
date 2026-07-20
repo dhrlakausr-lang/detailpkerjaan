@@ -14,20 +14,20 @@
 <body class="scroll-smooth bg-[#f8fafc] font-sans text-[15px] leading-[1.6] text-[#334155]">
 
     {{-- NAVBAR --}}
-    <nav class="sticky top-0 z-[100] flex h-[68px] items-center justify-between border-b border-[#e2e8f0] bg-white px-10 shadow-[0_1px_3px_rgba(0,0,0,.08),0_1px_2px_rgba(0,0,0,.06)]">
+    <nav class="sticky top-0 z-[100] flex min-h-[68px] items-center justify-between gap-4 border-b border-[#e2e8f0] bg-white px-10 py-3 shadow-[0_1px_3px_rgba(0,0,0,.08),0_1px_2px_rgba(0,0,0,.06)] max-[860px]:flex-wrap max-[640px]:px-4">
         <div class="flex items-center gap-2">
             <img src="{{ asset('images/logolokerinaja.png') }}" alt="LokerInAja" class="h-10 w-auto object-contain">
         </div>
 
-        <ul class="flex list-none gap-1">
+        <ul class="flex list-none gap-1 max-[860px]:order-3 max-[860px]:w-full max-[860px]:overflow-x-auto max-[860px]:pb-1">
             <li><a href="{{ route('home') }}" class="rounded-lg bg-[#eff6ff] px-3.5 py-1.5 text-sm font-medium text-[#2563eb] no-underline transition-all duration-200 hover:bg-[#eff6ff] hover:text-[#2563eb]">Beranda</a></li>
             <li><a href="{{ route('lowongan.index') }}" class="rounded-lg px-3.5 py-1.5 text-sm font-medium text-[#64748b] no-underline transition-all duration-200 hover:bg-[#eff6ff] hover:text-[#2563eb]">Daftar Lowongan</a></li>
             <li><a href="#kategori" class="rounded-lg px-3.5 py-1.5 text-sm font-medium text-[#64748b] no-underline transition-all duration-200 hover:bg-[#eff6ff] hover:text-[#2563eb]">Kategori</a></li>
             <li><a href="#testimoni" class="rounded-lg px-3.5 py-1.5 text-sm font-medium text-[#64748b] no-underline transition-all duration-200 hover:bg-[#eff6ff] hover:text-[#2563eb]">Testimoni</a></li>
         </ul>
 
-        <div class="flex items-center gap-2.5">
-            <select class="cursor-pointer rounded-lg border border-[#e2e8f0] bg-white px-3 py-[7px] font-[inherit] text-[13px] text-[#334155] outline-none" id="navLokasi">
+        <div class="flex items-center gap-2.5 max-[420px]:gap-2">
+            <select class="cursor-pointer rounded-lg border border-[#e2e8f0] bg-white px-3 py-[7px] font-[inherit] text-[13px] text-[#334155] outline-none max-[640px]:hidden" id="navLokasi">
                 <option value=""><i class="fas fa-map-marker-alt"></i> Semua Lokasi</option>
                 <option value="jakarta">Jakarta</option>
                 <option value="bandung">Bandung</option>
@@ -39,25 +39,25 @@
     </nav>
 
     {{-- HERO --}}
-    <section class="relative flex min-h-[580px] items-center overflow-hidden">
+    <section class="relative flex min-h-[580px] items-center overflow-hidden max-[760px]:min-h-[auto]">
         <div class="absolute inset-0 z-0 bg-[linear-gradient(135deg,rgba(15,23,42,.85)_0%,rgba(30,58,138,.75)_50%,rgba(29,78,216,.65)_100%),url('/images/bg.png')] bg-cover bg-center bg-no-repeat"></div>
-        <div class="relative z-[1] mx-auto max-w-[800px] px-6 py-20 text-center text-white">
-            <div class="mb-6 inline-flex items-center gap-1.5 rounded-full border border-[rgba(245,158,11,.3)] bg-[rgba(245,158,11,.15)] px-4 py-1.5 text-[13px] font-semibold text-[#fbbf24]"><i class="fas fa-fire"></i> 500+ Lowongan Baru Minggu Ini</div>
-            <h1 class="mb-[18px] text-[56px] font-extrabold leading-[1.1] tracking-[-1px]">Temukan Karir<br><span class="bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] bg-clip-text text-transparent">Impian Kamu</span></h1>
-            <p class="mx-auto mb-9 max-w-[560px] text-[17px] text-[rgba(255,255,255,.75)]">Platform pencarian kerja terpercaya dengan ribuan lowongan dari perusahaan terbaik Indonesia</p>
+        <div class="relative z-[1] mx-auto max-w-[800px] px-6 py-20 text-center text-white max-[640px]:px-4 max-[640px]:py-14">
+            <div class="mb-6 inline-flex max-w-full items-center gap-1.5 rounded-full border border-[rgba(245,158,11,.3)] bg-[rgba(245,158,11,.15)] px-4 py-1.5 text-[13px] font-semibold text-[#fbbf24] max-[420px]:text-xs"><i class="fas fa-fire"></i> <span class="truncate">500+ Lowongan Baru Minggu Ini</span></div>
+            <h1 class="mb-[18px] text-[56px] font-extrabold leading-[1.1] tracking-[-1px] max-[760px]:text-[42px] max-[480px]:text-[34px]">Temukan Karir<br><span class="bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] bg-clip-text text-transparent">Impian Kamu</span></h1>
+            <p class="mx-auto mb-9 max-w-[560px] text-[17px] text-[rgba(255,255,255,.75)] max-[480px]:text-[15px]">Platform pencarian kerja terpercaya dengan ribuan lowongan dari perusahaan terbaik Indonesia</p>
 
-            <div class="mx-auto mb-9 flex max-w-[700px] items-center gap-0 rounded-2xl bg-white p-2 shadow-[0_20px_60px_rgba(0,0,0,.3)]">
-                <div class="relative flex flex-1 items-center gap-2.5 px-4 py-2 text-[#64748b]">
+            <div class="mx-auto mb-9 flex max-w-[700px] items-center gap-0 rounded-2xl bg-white p-2 shadow-[0_20px_60px_rgba(0,0,0,.3)] max-[720px]:flex-col max-[720px]:items-stretch max-[720px]:gap-2">
+                <div class="relative flex flex-1 items-center gap-2.5 px-4 py-2 text-[#64748b] max-[720px]:w-full">
                     <i class="fas fa-search shrink-0 text-[15px] text-[#2563eb]"></i>
                     <input class="w-full border-0 bg-transparent font-[inherit] text-sm text-[#0f172a] outline-none placeholder:text-[#64748b]" type="text" id="searchKeyword" placeholder="Posisi, keahlian, atau kategori..." autocomplete="off">
                     <div id="autocompleteDropdown" class="autocomplete-dropdown hidden absolute top-[calc(100%+8px)] -left-4 -right-4 z-[999] max-h-[340px] overflow-x-hidden overflow-y-auto rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white shadow-[0_12px_40px_rgba(0,0,0,.18)] [&.show]:block"></div>
                 </div>
-                <div class="h-9 w-px shrink-0 bg-[#e2e8f0]"></div>
-                <div class="flex flex-1 items-center gap-2.5 px-4 py-2 text-[#64748b]">
+                <div class="h-9 w-px shrink-0 bg-[#e2e8f0] max-[720px]:hidden"></div>
+                <div class="flex flex-1 items-center gap-2.5 px-4 py-2 text-[#64748b] max-[720px]:w-full max-[720px]:rounded-xl max-[720px]:border max-[720px]:border-[#e2e8f0]">
                     <i class="fas fa-map-marker-alt shrink-0 text-[15px] text-[#2563eb]"></i>
                     <input class="w-full border-0 bg-transparent font-[inherit] text-sm text-[#0f172a] outline-none placeholder:text-[#64748b]" type="text" id="searchLokasi" placeholder="Kota atau lokasi...">
                 </div>
-                <button class="btn-search flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl border-0 bg-[#2563eb] px-7 py-[13px] font-[inherit] text-sm font-bold text-white transition-colors duration-200 hover:bg-[#1d4ed8] disabled:cursor-not-allowed disabled:bg-[#93c5fd]" onclick="doSearch()">Cari Kerja</button>
+                <button class="btn-search flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl border-0 bg-[#2563eb] px-7 py-[13px] font-[inherit] text-sm font-bold text-white transition-colors duration-200 hover:bg-[#1d4ed8] disabled:cursor-not-allowed disabled:bg-[#93c5fd] max-[720px]:w-full" onclick="doSearch()">Cari Kerja</button>
             </div>
 
             {{-- Data lowongan untuk autocomplete --}}
@@ -65,54 +65,54 @@
                 window.allLowongan = @json($lowonganJson);
             </script>
 
-            <div class="flex items-center justify-center gap-0">
-                <div class="flex flex-col items-center px-8"><strong class="text-2xl font-extrabold text-white">12.000+</strong> <span class="mt-0.5 text-xs text-[rgba(255,255,255,.6)]">Lowongan Aktif</span></div>
-                <div class="h-10 w-px bg-[rgba(255,255,255,.2)]"></div>
-                <div class="flex flex-col items-center px-8"><strong class="text-2xl font-extrabold text-white">3.500+</strong> <span class="mt-0.5 text-xs text-[rgba(255,255,255,.6)]">Perusahaan</span></div>
-                <div class="h-10 w-px bg-[rgba(255,255,255,.2)]"></div>
-                <div class="flex flex-col items-center px-8"><strong class="text-2xl font-extrabold text-white">98%</strong> <span class="mt-0.5 text-xs text-[rgba(255,255,255,.6)]">Berhasil Diterima</span></div>
+            <div class="flex items-center justify-center gap-0 max-[640px]:flex-wrap max-[640px]:gap-y-4">
+                <div class="flex flex-col items-center px-8 max-[640px]:w-1/3 max-[640px]:px-2 max-[420px]:w-full"><strong class="text-2xl font-extrabold text-white max-[480px]:text-xl">12.000+</strong> <span class="mt-0.5 text-xs text-[rgba(255,255,255,.6)]">Lowongan Aktif</span></div>
+                <div class="h-10 w-px bg-[rgba(255,255,255,.2)] max-[420px]:hidden"></div>
+                <div class="flex flex-col items-center px-8 max-[640px]:w-1/3 max-[640px]:px-2 max-[420px]:w-full"><strong class="text-2xl font-extrabold text-white max-[480px]:text-xl">3.500+</strong> <span class="mt-0.5 text-xs text-[rgba(255,255,255,.6)]">Perusahaan</span></div>
+                <div class="h-10 w-px bg-[rgba(255,255,255,.2)] max-[420px]:hidden"></div>
+                <div class="flex flex-col items-center px-8 max-[640px]:w-1/3 max-[640px]:px-2 max-[420px]:w-full"><strong class="text-2xl font-extrabold text-white max-[480px]:text-xl">98%</strong> <span class="mt-0.5 text-xs text-[rgba(255,255,255,.6)]">Berhasil Diterima</span></div>
             </div>
         </div>
     </section>
 
     {{-- KATEGORI --}}
-    <section class="section bg-white py-20" id="kategori">
-        <div class="mx-auto max-w-[1200px] px-6">
+    <section class="section bg-white py-20 max-[640px]:py-14" id="kategori">
+        <div class="mx-auto max-w-[1200px] px-6 max-[640px]:px-4">
             <div class="mb-12 text-center">
-                <h2 class="mb-2.5 text-[34px] font-extrabold tracking-[-.5px] text-[#0f172a]">Jelajahi Berdasarkan Kategori</h2>
+                <h2 class="mb-2.5 text-[34px] font-extrabold tracking-[-.5px] text-[#0f172a] max-[520px]:text-[28px]">Jelajahi Berdasarkan Kategori</h2>
                 <p class="text-base text-[#64748b]">Temukan pekerjaan sesuai bidang keahlianmu</p>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-3.5">
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="">
+            <div class="flex flex-wrap justify-center gap-3.5 max-[520px]:grid max-[520px]:grid-cols-2 max-[520px]:gap-3">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] max-[520px]:min-w-0 max-[520px]:px-3 max-[520px]:py-4 [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#eff6ff] text-xl text-[#2563eb] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-layer-group"></i></div>
                     <span>Semua</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="it">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] max-[520px]:min-w-0 max-[520px]:px-3 max-[520px]:py-4 [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="it">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f0fdf4] text-xl text-[#16a34a] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-laptop-code"></i></div>
                     <span>IT & Tech</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="marketing">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] max-[520px]:min-w-0 max-[520px]:px-3 max-[520px]:py-4 [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="marketing">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fff7ed] text-xl text-[#ea580c] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-bullhorn"></i></div>
                     <span>Marketing</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="administrasi">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] max-[520px]:min-w-0 max-[520px]:px-3 max-[520px]:py-4 [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="administrasi">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fdf4ff] text-xl text-[#9333ea] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-folder-open"></i></div>
                     <span>Admin</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="retail">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] max-[520px]:min-w-0 max-[520px]:px-3 max-[520px]:py-4 [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="retail">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fff1f2] text-xl text-[#e11d48] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-store"></i></div>
                     <span>Retail</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="human resource">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] max-[520px]:min-w-0 max-[520px]:px-3 max-[520px]:py-4 [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="human resource">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f0f9ff] text-xl text-[#0284c7] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-users"></i></div>
                     <span>Human Resource</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="teknik">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] max-[520px]:min-w-0 max-[520px]:px-3 max-[520px]:py-4 [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="teknik">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fefce8] text-xl text-[#ca8a04] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-tools"></i></div>
                     <span>Teknisi</span>
                 </div>
-                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="keuangan">
+                <div class="kategori-card group flex min-w-[110px] cursor-pointer flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white px-6 py-5 text-[13px] font-semibold text-[#334155] transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-[#2563eb] hover:bg-[#eff6ff] hover:text-[#2563eb] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)] max-[520px]:min-w-0 max-[520px]:px-3 max-[520px]:py-4 [&.active]:-translate-y-[3px] [&.active]:border-[#2563eb] [&.active]:bg-[#eff6ff] [&.active]:text-[#2563eb] [&.active]:shadow-[0_4px_16px_rgba(0,0,0,.10)]" data-kategori="keuangan">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f0fdfa] text-xl text-[#0d9488] transition-transform duration-[250ms] group-hover:scale-110"><i class="fas fa-chart-line"></i></div>
                     <span>Akuntansi</span>
                 </div>
@@ -121,14 +121,14 @@
     </section>
 
     {{-- LOWONGAN --}}
-    <section class="section bg-[#f8fafc] py-20" id="lowongan">
-        <div class="mx-auto max-w-[1200px] px-6">
+    <section class="section bg-[#f8fafc] py-20 max-[640px]:py-14" id="lowongan">
+        <div class="mx-auto max-w-[1200px] px-6 max-[640px]:px-4">
             <div class="mb-12 text-center">
-                <h2 class="mb-2.5 text-[34px] font-extrabold tracking-[-.5px] text-[#0f172a]">Lowongan Terbaru</h2>
+                <h2 class="mb-2.5 text-[34px] font-extrabold tracking-[-.5px] text-[#0f172a] max-[520px]:text-[28px]">Lowongan Terbaru</h2>
                 <p class="text-base text-[#64748b]">Peluang karir terkini dari perusahaan ternama</p>
             </div>
 
-            <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5" id="jobGrid">
+            <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5 max-[340px]:grid-cols-1" id="jobGrid">
                 @forelse ($lowongan as $item)
                     @php
                         $gambar = $item->gambar ?? 'Job1.png';
@@ -171,14 +171,14 @@
     </section>
 
     {{-- FEATURED --}}
-    <section class="py-20 bg-white">
-        <div class="mx-auto max-w-[1200px] px-6">
+    <section class="py-20 bg-white max-[640px]:py-14">
+        <div class="mx-auto max-w-[1200px] px-6 max-[640px]:px-4">
             <div class="mb-12 text-center">
-                <h2 class="mb-2.5 text-[34px] font-extrabold tracking-[-.5px] text-[#0f172a]">Lowongan Unggulan</h2>
+                <h2 class="mb-2.5 text-[34px] font-extrabold tracking-[-.5px] text-[#0f172a] max-[520px]:text-[28px]">Lowongan Unggulan</h2>
                 <p class="text-base text-[#64748b]">Dipilih khusus untuk kamu</p>
             </div>
 
-            <div class="grid grid-cols-3 gap-6">
+            <div class="grid grid-cols-3 gap-6 max-[980px]:grid-cols-2 max-[640px]:grid-cols-1">
                 <div class="featured-card cursor-pointer overflow-hidden rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white transition-all duration-[250ms] hover:-translate-y-1 hover:border-[#2563eb] hover:shadow-[0_10px_40px_rgba(0,0,0,.14)]">
                     <img class="h-[180px] w-full object-cover" src="{{ asset('images/Job1.png') }}" alt="Senior Frontend Developer">
                     <div class="p-5">
@@ -216,14 +216,14 @@
     </section>
 
     {{-- TESTIMONI --}}
-    <section class="py-20 bg-[#f8fafc]" id="testimoni">
-        <div class="mx-auto max-w-[1200px] px-6">
+    <section class="py-20 bg-[#f8fafc] max-[640px]:py-14" id="testimoni">
+        <div class="mx-auto max-w-[1200px] px-6 max-[640px]:px-4">
             <div class="mb-12 text-center">
-                <h2 class="mb-2.5 text-[34px] font-extrabold tracking-[-.5px] text-[#0f172a]">Kata Mereka</h2>
+                <h2 class="mb-2.5 text-[34px] font-extrabold tracking-[-.5px] text-[#0f172a] max-[520px]:text-[28px]">Kata Mereka</h2>
                 <p class="text-base text-[#64748b]">Ribuan pencari kerja sudah membuktikannya</p>
             </div>
 
-            <div class="grid grid-cols-3 items-start gap-6">
+            <div class="grid grid-cols-3 items-start gap-6 max-[980px]:grid-cols-2 max-[640px]:grid-cols-1">
                 <div class="rounded-[14px] border-[1.5px] border-[#e2e8f0] bg-white p-7 transition-all duration-[250ms] hover:-translate-y-[3px] hover:shadow-[0_4px_16px_rgba(0,0,0,.10)]">
                     <div class="mb-3.5 flex gap-[3px] text-[13px] text-[#f59e0b]">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -270,20 +270,20 @@
     </section>
 
     {{-- CTA BANNER --}}
-    <section class="bg-white py-20">
-        <div class="mx-auto max-w-[1200px] px-6">
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#2563eb] px-10 py-16 text-center text-white before:absolute before:-right-20 before:-top-20 before:h-[280px] before:w-[280px] before:rounded-full before:bg-[rgba(255,255,255,.05)] after:absolute after:-bottom-[60px] after:-left-[60px] after:h-[200px] after:w-[200px] after:rounded-full after:bg-[rgba(255,255,255,.04)]">
-                <h2 class="relative z-[1] mb-3.5 text-[38px] font-extrabold">Siap Memulai Karir Baru?</h2>
+    <section class="bg-white py-20 max-[640px]:py-14">
+        <div class="mx-auto max-w-[1200px] px-6 max-[640px]:px-4">
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#2563eb] px-10 py-16 text-center text-white before:absolute before:-right-20 before:-top-20 before:h-[280px] before:w-[280px] before:rounded-full before:bg-[rgba(255,255,255,.05)] after:absolute after:-bottom-[60px] after:-left-[60px] after:h-[200px] after:w-[200px] after:rounded-full after:bg-[rgba(255,255,255,.04)] max-[520px]:px-5 max-[520px]:py-12">
+                <h2 class="relative z-[1] mb-3.5 text-[38px] font-extrabold max-[520px]:text-[28px]">Siap Memulai Karir Baru?</h2>
                 <p class="relative z-[1] mb-8 text-base text-[rgba(255,255,255,.75)]">Bergabung dengan 50.000+ pencari kerja yang sudah menemukan pekerjaan impian mereka</p>
-                <a href="{{ route('login') }}" class="relative z-[1] inline-flex cursor-pointer items-center gap-2 rounded-xl border-0 bg-[#f59e0b] px-9 py-[15px] font-[inherit] text-[15px] font-extrabold text-[#1a1a1a] no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#fbbf24] hover:text-[#1a1a1a] hover:shadow-[0_8px_24px_rgba(245,158,11,.4)]">Daftar Gratis Sekarang <i class="fas fa-arrow-right"></i></a>
+                <a href="{{ route('login') }}" class="relative z-[1] inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border-0 bg-[#f59e0b] px-9 py-[15px] font-[inherit] text-[15px] font-extrabold text-[#1a1a1a] no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#fbbf24] hover:text-[#1a1a1a] hover:shadow-[0_8px_24px_rgba(245,158,11,.4)] max-[520px]:w-full max-[520px]:px-5">Daftar Gratis Sekarang <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
 
     {{-- FOOTER --}}
     <footer class="bg-[#0f172a] pt-16 text-[rgba(255,255,255,.7)]">
-        <div class="mx-auto max-w-[1200px] px-6">
-            <div class="grid grid-cols-[2fr_1fr_1fr_1.5fr] gap-12 border-b border-[rgba(255,255,255,.08)] pb-12">
+        <div class="mx-auto max-w-[1200px] px-6 max-[640px]:px-4">
+            <div class="grid grid-cols-[2fr_1fr_1fr_1.5fr] gap-12 border-b border-[rgba(255,255,255,.08)] pb-12 max-[980px]:grid-cols-2 max-[640px]:grid-cols-1 max-[640px]:gap-8">
                 <div>
                     <img src="{{ asset('images/logolokerinaja.png') }}" alt="LokerInAja" class="mb-3.5 block h-10 w-auto object-contain">
                     <p class="mb-5 text-sm leading-[1.7] text-[rgba(255,255,255,.55)]">Platform pencarian kerja terpercaya untuk menghubungkan talenta terbaik dengan perusahaan impian.</p>
@@ -341,9 +341,9 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-between py-5 text-[13px] text-[rgba(255,255,255,.35)]">
+            <div class="flex items-center justify-between py-5 text-[13px] text-[rgba(255,255,255,.35)] max-[640px]:flex-col max-[640px]:gap-3 max-[640px]:text-center">
                 <span>&copy; 2026 LokerInAja. All rights reserved.</span>
-                <div class="flex gap-6">
+                <div class="flex gap-6 max-[420px]:flex-wrap max-[420px]:justify-center max-[420px]:gap-3">
                     <a class="text-[rgba(255,255,255,.35)] no-underline transition-colors duration-200 hover:text-[rgba(255,255,255,.7)]" href="#" onclick="showInfo('Privacy Policy sedang disiapkan.')">Privacy Policy</a>
                     <a class="text-[rgba(255,255,255,.35)] no-underline transition-colors duration-200 hover:text-[rgba(255,255,255,.7)]" href="#" onclick="showInfo('Terms of Use sedang disiapkan.')">Terms of Use</a>
                     <a class="text-[rgba(255,255,255,.35)] no-underline transition-colors duration-200 hover:text-[rgba(255,255,255,.7)]" href="#" onclick="showInfo('FAQ sedang dalam pengembangan.')">FAQ</a>

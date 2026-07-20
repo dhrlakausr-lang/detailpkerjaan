@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AdminLamaranController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\LokerinajaController;
@@ -26,6 +27,12 @@ Route::view('/lamaran-user', 'applications.placeholder')->name('applications.com
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'prosesLogin']);
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('password.verify-otp');
+Route::post('/reset-password/update', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
+
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'prosesRegister']);
