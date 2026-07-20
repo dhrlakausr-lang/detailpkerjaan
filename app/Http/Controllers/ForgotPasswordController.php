@@ -55,6 +55,7 @@ class ForgotPasswordController extends Controller
         }
 
         $request->session()->put('otp_email', $email);
+        $request->session()->forget('otp_verified_email');
 
         return redirect()
             ->route('password.reset')

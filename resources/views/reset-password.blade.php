@@ -29,13 +29,15 @@
             <p class="mb-4 rounded-xl bg-red-500/20 px-4 py-3 text-sm font-semibold text-white">{{ $errors->first() }}</p>
         @endif
 
-        <form action="{{ session('otp_verified_email') ? route('password.update') : route('password.verify-otp') }}" method="POST" class="flex flex-col gap-[18px]">
+        @php $otpVerified = session('otp_verified_email') && session('otp_verified_email') === $email; @endphp
+
+        <form action="{{ $otpVerified ? route('password.update') : route('password.verify-otp') }}" method="POST" class="flex flex-col gap-[18px]">
             @csrf
 
             <input type="text" name="otp" inputmode="numeric" maxlength="6" placeholder="Kode OTP (6 digit)" required
-                   class="w-full rounded-[12px] bg-white px-[18px] py-[16px] text-center text-[20px] font-bold tracking-[8px] text-black outline-none" {{ session('otp_verified_email') ? 'disabled' : '' }}>
+                   class="w-full rounded-[12px] bg-white px-[18px] py-[16px] text-center text-[20px] font-bold tracking-[8px] text-black outline-none" {{ $otpVerified ? 'disabled' : '' }}>
 
-            @if(session('otp_verified_email'))
+            @if($otpVerified)
                 <input type="password" name="password" placeholder="Password Baru" required
                        class="w-full rounded-[12px] bg-white px-[18px] py-[16px] text-[15px] text-black outline-none">
 
